@@ -8,9 +8,9 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import InputBase from '@material-ui/core/InputBase';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import{getcountofcartitem} from '../Service/service'
+import { getcountofcartitem } from '../Service/service'
 class Header extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
 
   }
@@ -18,11 +18,13 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <AppBar position="static" className="MuiAppBar-colorBrown"id="headerColor">
+        <AppBar position="static" className="MuiAppBar-colorBrown" id="headerColor">
           <Toolbar variant="dense" className="toolbar">
-            <div className="temp" id="book-icon">
+            <div className="temp" id="book-icon"
+            onClick={this.props.showMainPage}
+            >
               <MenuBookIcon fontSize='medium' />
-              <Typography variant='h6'>
+              <Typography variant='h6' id="book-icon">
                 Book Store
                             </Typography>
             </div>
@@ -39,20 +41,27 @@ class Header extends Component {
                 onChange={this.props.search}
               />
             </div>
-            <div className="rightIcons">
-              <FavoriteBorderOutlinedIcon fontSize='medium' />
+            <div className="HeaderIcons">
+              <div className="rightIcons">
+                <FavoriteBorderOutlinedIcon fontSize='medium'
+                onClick={this.props.wlIconClickedHandler}
+                />
+              </div>
+              <div className="wishlists">
+              { this.props.wishlistIds.length}
               </div>
               <div className="cart-icon-styles">
-              <ShoppingCartOutlinedIcon fontSize='medium' 
-              onClick={this.props.cartIconClickedHandler}
-              //onClick={() => this.props.movedToCartFunc(true)}
-              />
+                <ShoppingCartOutlinedIcon fontSize='medium'
+                  onClick={this.props.cartIconClickedHandler}
+                //onClick={() => this.props.movedToCartFunc(true)}
+                />
               </div>
+            </div>
             <div className="cart-style-header">
               {
-          this.props.cart.length
-       }
-       </div>
+                this.props.cart.length
+              }
+            </div>
           </Toolbar>
         </AppBar>
       </div>

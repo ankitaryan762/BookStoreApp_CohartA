@@ -3,9 +3,10 @@ import { Card, Button, Typography } from '@material-ui/core'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import IconButton from '@material-ui/core/IconButton'
-import { addCustomerDetails, getcountofcartitem} from '../Service/service'
+import { addCustomerDetails, getcountofcartitem } from '../Service/service'
+import { withRouter } from "react-router-dom";
 import getAllCartItem from '../Service/service'
-class MyCarts extends Component {
+export class MyCarts extends Component {
     constructor(props) {
         super(props)
         console.log(props.cartItems)
@@ -21,8 +22,9 @@ class MyCarts extends Component {
             Address: "",
             LandMark: "",
             Type: "",
-            clicks:0,
-            orderId:0,
+            clicks: 0,
+            orderId: 0,
+            summary:false,
         }
     }
 
@@ -33,12 +35,17 @@ class MyCarts extends Component {
         })
     }
 
-    handleClick = () => {
-        // this.props.history.push('/orderSummary');
+    summaryHandler = () => {
+        this.props.history.push({pathname:'/orderSummary',state:{orderId:this.state.orderId, address:this.state.Address, contact:this.state.PhoneNumber}});
     }
     handleCustomerDetails = () => {
         this.setState({
             open: true
+        })
+    }
+    handleSummaryDetails = () => {
+        this.setState({
+            summary: true
         })
     }
     nameHandler = (event) => {
@@ -101,47 +108,47 @@ class MyCarts extends Component {
     }
 
     IncrementItem = (data) => {
-        if(data.count+1>5)
-        return
-        this.props.changeCartItems(data,data.count+1)
+        if (data.count + 1 > 5)
+            return
+        this.props.changeCartItems(data, data.count + 1)
         this.getBookCount()
-      }
+    }
     decreaseItem = (data) => {
-        if(data.count==1)
-        return
-        this.props.changeCartItems(data,data.count-1)
+        if (data.count == 1)
+            return
+        this.props.changeCartItems(data, data.count - 1)
         this.getBookCount()
-      }
+    }
 
-      addCustomer =async(Name,PhoneNumber,Pincode,Locality,Address,LandMark,City)=>{
-        
-         const NewCustomerItem = {
-             Email: sessionStorage.getItem("Email"),
-             Name: Name,
-             PhoneNumber:PhoneNumber,
-             PinCode: Pincode,
-             Locality:Locality,
-             Address:Address,
-             City: City,
-             LandMark:LandMark
-             
-     };
-     let orderId = await addCustomerDetails(NewCustomerItem)
-     orderId = new Date().getTime()
-     
-     this.setState({orderId: orderId})
- }
+    addCustomer = async (Name, PhoneNumber, Pincode, Locality, Address, LandMark, City) => {
+
+        const NewCustomerItem = {
+            Email: sessionStorage.getItem("Email"),
+            Name: Name,
+            PhoneNumber: PhoneNumber,
+            PinCode: Pincode,
+            Locality: Locality,
+            Address: Address,
+            City: City,
+            LandMark: LandMark
+
+        };
+        let orderId = await addCustomerDetails(NewCustomerItem)
+        orderId = new Date().getTime()
+
+        this.setState({ orderId: orderId })
+    }
 
     render() {
         //const booksInCart = this.props.books.filter(book => this.props.cart.includes(book.bookId))
         return (
-            <div>
+            <div className="myCart-mainDiv">
                 <Card className="cartCard">
                     <div>
-                        <Typography variant="h6">My Cart ({this.props.addedCount})</Typography>
+                        <Typography variant="h6">My Cart ({this.props.addedCount - this.props.wishlistIds.length})</Typography>
                         {
-                            
-                            this.props.cartItems.sort((a,b)=> a.bookTitle > b.bookTitle?1:-1).map((data) => {
+
+                            this.props.cartItems.sort((a, b) => a.bookId > b.bookId ? 1 : -1).map((data) => {
                                 return (
 
                                     <div>
@@ -154,26 +161,32 @@ class MyCarts extends Component {
                                                     <td className="book-details">
                                                         <Typography variant="h6" >{data.bookTitle}</Typography>
                                                         <Typography>{data.authorName}</Typography>
-                                                        <Typography>Rs.{data.bookPrice}</Typography>
+                                                        <Typography><div className="money-div">
+                                                            ₹
+                                                        <div>{data.bookPrice}</div>
+                                                        </div></Typography>
                                                         <div>
                                                         </div>
-
+                                                        <div className="icons-cart-div">
                                                         <IconButton
-                                                        onClick={()=>this.decreaseItem(data)}>
+                                                            onClick={() => this.decreaseItem(data)}>
                                                             <RemoveCircleOutlineIcon />
                                                         </IconButton>
-                                                        <span>{data.count}</span>
+                                                        <div className="count-div-cart">{data.count}</div>
                                                         <IconButton
-                                                        onClick={()=>this.IncrementItem(data)}
+                                                            onClick={() => this.IncrementItem(data)}
                                                         >
                                                             <AddCircleOutlineIcon />
                                                         </IconButton>
-
+                                                     
                                                         <Button
+                                                        id="remove"
                                                             variant='outlined'
                                                             onClick={() => {
-                                                                this.props.deleteCartItems(data.cartId)}}
+                                                                this.props.deleteCartItems(data.cartId)
+                                                            }}
                                                         >Remove</Button>
+                                                           </div>
                                                     </td>
                                                 </div>
 
@@ -185,92 +198,135 @@ class MyCarts extends Component {
                             })
                         }
                         {
-                            this.props.addedCount>0?(
+                            this.props.addedCount > 0 ? (
                                 <div className="placeOrder">
-                            <Button id="placeOrder"
-                            onClick={this.placeOrderHandler}>
-                            Place Order</Button>
-                        </div>
-                            ):(<div></div>)
+                                    <Button id="placeOrder"
+                                        onClick={this.placeOrderHandler}>
+                                        Place Order</Button>
+                                </div>
+                            ) : (<div></div>)
                         }
-                        
+
 
                     </div>
                 </Card>
                 {
-                   ! this.state.open ? (
+                    !this.state.open ? (
                         <Card className="orderSummry"
                             onClick={this.handleCustomerDetails}
                         >
                             Customer Details
                         </Card>
                     ) : (
-                            <Card className="customerDetails">
+                            <Card className="cartCard">
                                 <div className="outer-div">
                                     <span className="customer-details">Customer Details</span>
                                     <div className="div-field-styles">
                                         <input type="text" placeholder="Name" className="field-styles"
-                                        onChange={this.nameHandler}
+                                            onChange={this.nameHandler}
                                         />
                                         <input type="text" placeholder="Phone no." className="field-styles"
-                                        onChange={this.phoneNumberHandler} 
-                                         />
-                                    </div>
-                                    <div className="div-field-styles">
-                                        <input type="text" placeholder="Pincode" className="field-styles" 
-                                        onChange={this.pincodeHandler}
+                                            onChange={this.phoneNumberHandler}
                                         />
-                                        <input type="text" placeholder="Locality" className="field-styles" 
-                                        onChange={this.localityHandler}/>
                                     </div>
                                     <div className="div-field-styles">
-                                        <input type="text" placeholder="Address" className="field-styles-address" 
-                                        onChange={this.addressHandler}/>
+                                        <input type="text" placeholder="Pincode" className="field-styles"
+                                            onChange={this.pincodeHandler}
+                                        />
+                                        <input type="text" placeholder="Locality" className="field-styles"
+                                            onChange={this.localityHandler} />
                                     </div>
                                     <div className="div-field-styles">
-                                        <input type="text" placeholder="City/Town" className="field-styles" 
-                                        onChange={this.cityHandler}/>
-                                        <input type="text" placeholder="Landmark" className="field-styles" 
-                                        onChange={this.landmarkHandler}/>
+                                        <input type="text" placeholder="Address" className="field-styles-address"
+                                            onChange={this.addressHandler} />
                                     </div>
-                                    <span>Type</span>
+                                    <div className="div-field-styles">
+                                        <input type="text" placeholder="City/Town" className="field-styles"
+                                            onChange={this.cityHandler} />
+                                        <input type="text" placeholder="Landmark" className="field-styles"
+                                            onChange={this.landmarkHandler} />
+                                    </div>
+                                    <span className="customer-details">Type</span>
                                     <div className="type-div">
-                                        <label>Home</label>
+                                        <label id="label">Home</label>
                                         <input type="radio" className="radio-styles" />
-                                        <label>Work</label>
+                                        <label id="label">Work</label>
                                         <input type="radio" className="radio-styles" />
-                                        <label>Other</label>
+                                        <label id="label">Other</label>
                                         <input type="radio" />
                                     </div>
                                     <div>
-                                    {
-                            this.props.addedCount>0?(
-                                        <Button id="buttonStyles"
-                                        onClick={()=>this.addCustomer(this.state.Name,this.state.PhoneNumber,this.state.Pincode,this.state.Locality,this.state.Address,this.state.LandMark, this.state.City)}
-                                        >Continue</Button>
-                                        ):(<div></div>)
-                                    }
+                                        {
+                                            this.props.addedCount > 0 ? (
+                                                <Button id="buttonStyles"
+                                                    onClick={() => this.addCustomer(this.state.Name, this.state.PhoneNumber, this.state.Pincode, this.state.Locality, this.state.Address, this.state.LandMark, this.state.City)}
+                                                    // onClick={this.summaryHandler}
+                                                >Continue</Button>
+                                            ) : (<div></div>)
+                                        }
                                     </div>
                                 </div>
                             </Card>
                         )
                 }
+
+                {
+                    !this.state.summary ? (
                         <Card className="orderSummry"
-                            onClick={this.handleClick}
+                        onClick={this.handleSummaryDetails}
                         >
                             Order Summary
-                            {this.state.orderId}
                         </Card>
-                            {/* <Card className="orderSummry">
+                    ) :(
+                <Card className="cartCard"
+                    onClick={this.handleClick}
+                >
+                    Order Summary
+                    {
+                    this.props.cartItems.map((data) => {
+                                return (
+
+                                    <div>
+                                        <table>
+                                            <tr className="book-details">
+                                                <td className="book-details">
+                                                    <img className="imgStyle" src={data.bookImage} />
+                                                </td>
+                                                <div>
+                                                    <td className="book-details">
+                                                        <Typography variant="h6" >{data.bookTitle}</Typography>
+                                                        <Typography>{data.authorName}</Typography>
+                                                        <Typography><div className="money-div">
+                                                            ₹
+                                                        <div>{data.bookPrice}</div>
+                                                        </div>
+                                                        </Typography>
+                                                        </td>
+                                                        </div>
+                                                        </tr>
+                                                        </table>
+                                                        <div className="placeOrder">
+                                    <Button id="placeOrder"
+                                        onClick={this.summaryHandler}>
+                                        Checkout</Button>
+                                </div>
+                                                        </div>
+                                )
+
+                                })
+                            }
+                            {this.state.orderId}
+                </Card>
+                    )}
+                {/* <Card className="orderSummry">
                                 Order Id
                                 <div>
                                 {this.state.orderId}
                                 </div>
                             </Card> */}
-
             </div>
         )
     }
 }
 
-export default MyCarts;
+export default withRouter(MyCarts);

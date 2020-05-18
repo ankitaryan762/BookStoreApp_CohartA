@@ -14,8 +14,14 @@ export async function getBook(){
 //returns array of cart items(used join in backend)
 export async function getAllCartItem(){
        const result = await axios.get("https://localhost:44381/api/Cart/getcartcontext")
-       return result.data
+       return result.data.filter(cartItem => cartItem.count>0)
 }
+
+export async function getWishList(){
+    const result = await axios.get("https://localhost:44381/api/Cart/getcartcontext")
+    return result.data.filter(cartItem => cartItem.count==-1)
+}
+
 
 //parameter-> CartModel obj
 

@@ -84,16 +84,16 @@ class BookDashboard extends Component {
                                             <span className="fontsize">by {data.author}</span>
                                         </Typography>
                                         <Typography component="h4">
-                                            <span className="font-size-rs">Rs.{data.price}</span>
+                                            <span className="font-size-rs">₹{data.price}</span>
                                         </Typography>
                                     </CardContent>
                                     <CardActions>
                                     {
-                                        this.props.cart.includes(data.bookId) ?
+                                        (this.props.cart.includes(data.bookId) || this.props.wishlistIds.includes(data.bookId) ) ?
                                                     <button className="add-to-cart"
                                                     //onClick={()=>{this.props.addToCart(data.bookId)}}
                                                     >
-                                                        Added to cart
+                                                       {this.props.cart.includes(data.bookId)? "Added to cart" : "Added to Wishlist" }
                                                     </button>:
                                                      <>
                                                     <span  className="card-add">
@@ -103,10 +103,12 @@ class BookDashboard extends Component {
                                                         color='default'
                                                     > Add to cart</Button>
                                                     </span>
+                                                    
                                                     <span className="cartWish">
                                                     <Button
+                                                        id="btn-wish"
                                                         className="cartWish"
-                                                        //onClick={()=> this.props.AddToWishlist(id)}
+                                                        onClick={()=> this.props.addToCart(data.bookId,-1)}
                                                         variant='outlined'
                                                         color='default'
                                                     > Wishlist</Button>
@@ -123,9 +125,6 @@ class BookDashboard extends Component {
                         })
                     }
 
-                </div>
-                <div className='pagination-div'>
-                    <Pagination count={10} color="primary" className="page" />
                 </div>
             </div>
         )

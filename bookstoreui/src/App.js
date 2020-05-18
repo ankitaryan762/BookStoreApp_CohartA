@@ -15,7 +15,8 @@ function App() {
       <Route path='/dashboard' component={Dashboard}></Route>
       <Route path='/orderSummary' component={OrderSummary}></Route>
       <Route path='/myCarts' component={MyCarts}></Route>
-      <Route path='/login' component={Login}></Route>
+      <Route path='/' component={Login}></Route>
+    
       </Switch>
     </Router>
       )

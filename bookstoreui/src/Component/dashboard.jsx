@@ -3,35 +3,38 @@ import BookDashboard from './bookDashboard';
 import Header from './header'
 import dragon from '../assets/dragon.jpg'
 import Footer from './footer'
-import { getBook, getAllCartItem, deleteCartItemById,addCustomerDetails,getcountofcartitem} from '../Service/service'
+import { getBook, getAllCartItem, deleteCartItemById,addCustomerDetails,getcountofcartitem, getWishList} from '../Service/service'
 import OrderSummary from './orderSummary';
 import MyCarts from './myCarts'
+import Wishlist from './wishlist'
 import {addCartItem} from '../Service/service'
+import Pagination from './pagination'
 
 class Dashboard extends Component {
-    constructor(props) {
-        super();
-        this.state = {
+        state = {
             result: [],
             cart: [],
             clickedId: [],
             movedToCart: false,
             addedToCart: [],
             cartCount:0,
-            showCart:'false',
+            showCart:false,
+            showWishList: false,
             cartItems:[],
             searchText:"",
-            Name: "",
-            PhoneNumber: 0,
-            Pincode: 0,
-            Locality: "",
-            City: "",
-            Address: "",
-            Landmark: "",
             totalBook:[],
-            addedCount:0
+            addedCount:0,
+            currentPage:1,
+            // wishList:[],
+            wishlistIds:[],
+         postsPerPage:12,
         }
 
+    paginate=(pageNumber)=>{
+        this.setState({
+            currentPage:pageNumber
+        })
+        console.log("pagenumber after", this.state.currentPage);
     }
 
     getBookCount = async () =>{
@@ -44,18 +47,45 @@ class Dashboard extends Component {
         let result = await getBook()
         this.setState({ result })
     }
+
+    getWishListItems = async() => {
+        let list = await getWishList()
+        let ids = list.map(item=> item.bookId)
+        this.setState({wishList:list, wishlistIds: ids})
+    }
+
     componentDidMount() {
         this.func();
         this.getCartItems();
         this.getBookCount()
+        this.getWishListItems()
+    }
+
+
+    showMainPage = () => {
+        this.setState({
+            showCart: false,
+            showWishList:false
+        })
     }
 
     cartIconClickedHandler = () => {
         let showMyCart = this.state.showCart;
         this.setState({
-            showCart: !showMyCart
+            showCart: true,
+            showWishList:false
         })
     }
+
+
+    wlIconClickedHandler = () => {
+        let showMyCart = this.state.showCart;
+        this.setState({
+            showCart: false,
+            showWishList:true
+        })
+    }
+
 
     addToCart = async (id,count) => {
         var data = {
@@ -65,7 +95,8 @@ class Dashboard extends Component {
         
         let result = await addCartItem(data)
            this.getCartItems()
-            
+        
+        this.getWishListItems()
         }
 
     search = (text) =>{
@@ -74,6 +105,7 @@ class Dashboard extends Component {
 
     getCartItems= async ()=>{
         this.getBookCount()
+        
         let result  = await getAllCartItem()
         console.log(result)
         let cart = result.map(book => book.bookId)
@@ -85,31 +117,82 @@ class Dashboard extends Component {
         let deletedResult=await deleteCartItemById(cartid)
         console.log(deletedResult)
         this.getCartItems() 
+        
+        this.getWishListItems()
     }
 
     changeCartItems = async(book,count) =>{
         let deletedResult=await deleteCartItemById(book.cartId)
         this.addToCart(book.bookId,count)
     }
-
     
-    addCustomer =async(Name,PhoneNumber,Pincode,Locality,Address,Landmark,City)=>{
-       // let addDetails=await addCustomerDetails()
-       console.log(City)
-        const NewCustomerItem = {
-            Email: sessionStorage.getItem("Email"),
-            Name: Name,
-            PhoneNumber:PhoneNumber,
-            PinCode: Pincode,
-            Locality:Locality,
-            Address:Address,
-            City: City,
-            LandMark:Landmark
+//     addCustomer =async(Name,PhoneNumber,Pincode,Locality,Address,Landmark,City)=>{
+//        // let addDetails=await addCustomerDetails()
+//        console.log(City)
+//         const NewCustomerItem = {
+//             Email: sessionStorage.getItem("Email"),
+//             Name: Name,
+//             PhoneNumber:PhoneNumber,
+//             PinCode: Pincode,
+//             Locality:Locality,
+//             Address:Address,
+//             City: City,
+//             LandMark:Landmark
             
-    };
-    addCustomerDetails(NewCustomerItem)
-}
+//     };
+//     addCustomerDetails(NewCustomerItem)
+// }
+
+
+
+    renderContent = (books) =>
+    {
+        if(this.state.showCart)
+        return <MyCarts 
+        totalBook={this.totalBook}
+        countCartBook={this.countCartBook}
+        cartItems={this.state.cartItems} 
+        deleteCartItems={this.deleteCartItems}
+        changeCartItems={this.changeCartItems}
+        addedCount = { this.state.addedCount}
+        addCustomer={this.addCustomer}
+        wishlistIds ={this.state.wishlistIds}
+        />
+        if (this.state.showWishList)
+        return <Wishlist 
+        totalBook={this.totalBook}
+        countCartBook={this.countCartBook}
+        wishList={this.state.wishList} 
+        deleteCartItems={this.deleteCartItems}
+        changeCartItems={this.changeCartItems}
+        addedCount = { this.state.addedCount}
+        addCustomer={this.addCustomer}
+        />
+    
+    return <div><BookDashboard 
+    // books={this.state.result.filter((book)=> book.title.includes(this.state.searchText),currentPosts)} 
+    books={books}
+    AddToCart={this.addToCart} 
+    cart={this.state.cart} 
+    addToCart={this.addToCart}
+    wishList = {this.state.wishList}
+    wishlistIds ={this.state.wishlistIds}
+    />
+    <Pagination postsPerPage={this.state.postsPerPage}
+            totalPosts={this.state.result.length}
+            paginateNumber={this.paginate}/></div>
+    }
+
     render() {
+        const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
+        const indexOfFirstPost = indexOfLastPost - this.state.postsPerPage;
+        const currentPosts = this.state.result.slice(indexOfFirstPost, indexOfLastPost)
+        let books=[]
+        if(this.state.searchText=="")
+        books=currentPosts
+        else
+        books=this.state.result.filter((book)=> book.title.includes(this.state.searchText))
+        
 
             return (
                 <div>
@@ -118,31 +201,17 @@ class Dashboard extends Component {
                     cart={this.state.cart} 
                     cartCount={this.state.cartCount}
                     cartIconClickedHandler={this.cartIconClickedHandler}
+                    wlIconClickedHandler={this.wlIconClickedHandler}
+                    showMainPage={this.showMainPage}
                     search={this.search}
+                    wishlistIds ={this.state.wishlistIds}
                     //movedToCartFunc={this.setMoveToCart}
                      />
-                    {
-                        !this.state.showCart?
-                        <MyCarts 
-                        totalBook={this.totalBook}
-                        countCartBook={this.countCartBook}
-                        cartItems={this.state.cartItems} 
-                        deleteCartItems={this.deleteCartItems}
-                        changeCartItems={this.changeCartItems}
-                        addedCount = { this.state.addedCount}
-                        addCustomer={this.addCustomer}
-                        />
-                        :
-                    <BookDashboard 
-                    books={this.state.result.filter((book)=> book.title.includes(this.state.searchText))} 
-                    AddToCart={this.addToCart} 
-                    cart={this.state.cart} 
-                    addToCart={this.addToCart}
-                    />
-    }
-                    
+                
+               {this.renderContent(books)}
                 </div>
-                <div id="footer-container">
+                
+                <div>
                     <Footer />
                     </div>
                     </div>
