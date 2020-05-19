@@ -177,6 +177,7 @@ class Dashboard extends Component {
     addToCart={this.addToCart}
     wishList = {this.state.wishList}
     wishlistIds ={this.state.wishlistIds}
+    bookCount={this.state.result.length}
     />
     <Pagination postsPerPage={this.state.postsPerPage}
             totalPosts={this.state.result.length}
@@ -191,7 +192,7 @@ class Dashboard extends Component {
         if(this.state.searchText=="")
         books=currentPosts
         else
-        books=this.state.result.filter((book)=> book.title.includes(this.state.searchText))
+        books=this.state.result.filter((book)=> book.title.toLowerCase().includes(this.state.searchText)||book.author.toLowerCase().includes(this.state.searchText))
         
 
             return (

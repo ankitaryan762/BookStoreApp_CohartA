@@ -54,7 +54,7 @@ class BookDashboard extends Component {
             <div>
                 <div className='title-div'>
                     <Typography variant='h6'>
-                        Books<span className="font-style-dashboard">({this.props.books.length} items)</span>
+                        Books<span className="font-style-dashboard">({this.props.bookCount} items)</span>
                         </Typography>
                     <div>
                         <select className='sort' >
