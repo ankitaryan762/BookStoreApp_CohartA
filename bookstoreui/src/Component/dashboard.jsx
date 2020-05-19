@@ -25,7 +25,7 @@ class Dashboard extends Component {
             totalBook:[],
             addedCount:0,
             currentPage:1,
-            // wishList:[],
+            wishList:[],
             wishlistIds:[],
          postsPerPage:12,
         }
@@ -104,8 +104,7 @@ class Dashboard extends Component {
     }
 
     getCartItems= async ()=>{
-        this.getBookCount()
-        
+        this.getBookCount() 
         let result  = await getAllCartItem()
         console.log(result)
         let cart = result.map(book => book.bookId)
@@ -116,8 +115,7 @@ class Dashboard extends Component {
     deleteCartItems = async(cartid)=>  {
         let deletedResult=await deleteCartItemById(cartid)
         console.log(deletedResult)
-        this.getCartItems() 
-        
+        this.getCartItems()  
         this.getWishListItems()
     }
 
