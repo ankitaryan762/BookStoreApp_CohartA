@@ -315,7 +315,7 @@ export class MyCarts extends Component {
 
                                 })
                             }
-                            {this.state.orderId}
+                            {/* {this.state.orderId} */}
                 </Card>
                     )}
                 {/* <Card className="orderSummry">

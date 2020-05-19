@@ -35,6 +35,21 @@
   height: 34px;
   margin-top: 6px;
   border: 2px solid brown;
+  outline:none;
+}
+#remove-wishlist {
+  height: 34px;
+  margin-top: 6px;
+  border: 2px solid brown;
+  outline:none;
+}
+#added-cart{
+  height: 34px;
+  margin-top: 6px;
+  border: 2px solid brown;
+  margin-left: 50px;
+  margin-right: 35px;
+  outline:none;
 }
 
 .App-link {
@@ -435,7 +450,7 @@ outline: none;
 
 .img-style-dashboard{
   height: 170px;
-  width: 115px;
+  width: 135px;
 }
 .card-add{
   padding: 5px 0px;

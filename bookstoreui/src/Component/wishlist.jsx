@@ -49,14 +49,14 @@ class Wishlist extends Component {
 
 
                                                             <Button
-                                                                id="remove"
+                                                                id="remove-wishlist"
                                                                 variant='outlined'
                                                                 onClick={() => {
                                                                     this.props.deleteCartItems(data.cartId)
                                                                 }}
                                                             >Remove</Button>
                                                             <Button
-                                                                id="remove"
+                                                                id="added-cart"
                                                                 variant='outlined'
                                                                 onClick={() => {
                                                                     this.AddtoCart(data)
