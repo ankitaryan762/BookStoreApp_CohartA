@@ -30,5 +30,7 @@ namespace Manager.ManagerIMPL
         {
             return this._bookRepository.Image(file,id);
         }
+
+       
     }
 }

@@ -9,6 +9,6 @@ namespace Repository.IRepository
     public interface ICustomerDetailsRepo
     {
         Task<int> AddCustomerAddress(CustomerDetails address);
-        CustomerDetails GetCustomerAddress(CustomerDetails customerDetails);
+        CustomerDetails GetCustomerAddress(string EmailId);
     }
 }

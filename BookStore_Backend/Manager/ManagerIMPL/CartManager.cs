@@ -38,5 +38,10 @@ namespace Manager.ManagerIMPL
         {
             return await this._cartRepo.UpdateCartModel(newCartModel);
         }
+
+        public int GetNumOfBook()
+        {
+            return this._cartRepo.GetNumOfBook();
+        }
     }
 }

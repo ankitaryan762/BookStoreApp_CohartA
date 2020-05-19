@@ -8,59 +8,65 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import InputBase from '@material-ui/core/InputBase';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import { getcountofcartitem } from '../Service/service'
 class Header extends Component {
+  constructor(props) {
+    super(props)
+
+  }
+
   render() {
     return (
       <div>
-        <AppBar position="static" className="MuiAppBar-colorPrimary" style={styles.headerColor}>
+        <AppBar position="static" className="MuiAppBar-colorBrown" id="headerColor">
           <Toolbar variant="dense" className="toolbar">
-            <div className="temp" style={styles.bookIcon}>
+            <div className="temp" id="book-icon"
+            onClick={this.props.showMainPage}
+            >
               <MenuBookIcon fontSize='medium' />
-              {/* </div>
-                            <div className='book-title'> */}
-              <Typography variant='h6'>
+              <Typography variant='h6' id="book-icon">
                 Book Store
                             </Typography>
             </div>
             <div className="search_box">
               <div className="searchIcon"
                 title="Search"
+                onClick={this.searchHandel}
               >
                 <SearchIcon />
               </div>
               <InputBase className="input_search"
                 type="searchIcon"
                 placeholder="Search..."
+                onChange={this.props.search}
               />
             </div>
-            <div style={styles.rightIcons}>
-              <FavoriteBorderOutlinedIcon fontSize='medium' />
-              <ShoppingCartOutlinedIcon fontSize='medium' />
+            <div className="HeaderIcons">
+              <div className="rightIcons">
+                <FavoriteBorderOutlinedIcon fontSize='medium'
+                onClick={this.props.wlIconClickedHandler}
+                />
+              </div>
+              <div className="wishlists">
+              { this.props.wishlistIds.length}
+              </div>
+              <div className="cart-icon-styles">
+                <ShoppingCartOutlinedIcon fontSize='medium'
+                  onClick={this.props.cartIconClickedHandler}
+                //onClick={() => this.props.movedToCartFunc(true)}
+                />
+              </div>
+            </div>
+            <div className="cart-style-header">
+              {
+                this.props.cart.length
+              }
             </div>
           </Toolbar>
         </AppBar>
-
       </div>
     )
   }
 
-}
-const styles = {
-  bookIcon: {
-    width: 150,
-    marginLeft: 80,
-    display: "flex"
-  },
-  cartIcon: {
-    marginLeft: 90,
-  },
-  rightIcons: {
-    width: 100,
-    display: "flex",
-    justifyContent: "space-around"
-  },
-  headerColor: {
-    backgroundColor: 'Brown',
-  }
 }
 export default Header

@@ -27,5 +27,7 @@ namespace Repository.IRepository
         Task<int> AddBook(BookModel BookItem);
 
         string Image(IFormFile file, int id);
+
+        
     }
 }

@@ -11,50 +11,50 @@ class BookDashboard extends Component {
 
     constructor(props) {
         super(props)
-        console.log(props.books)
+        console.log(props.cart)
         this.state = {
-            arr:[],
-            count: 0,
         }
     }
-    displayButton(id) {
-        if (this.props.cart.includes(id)) {
+    // displayButton(id) {
+    //     if (this.props.cart.includes(id)) {
 
-            return (
-                <CardActions className="">
-                    <button className="add-to-cart">Added to cart</button>
-                </CardActions>
-            )
-        }
-        else {
+    //         return (
+    //             <CardActions>
+    //                 <button className="add-to-cart">Added to cart</button>
+    //             </CardActions>
+    //         )
+    //     }
+    //     else {
 
-            return (
+    //         return (
 
-                <CardActions>
-                    <Button className="MuiButton-outlined"
-                        style={styles.cartAdd}
-                        onClick={() => this.props.AddToCart(id)}
-                        variant='outlined'
-                        color='default'
-                    > Add to cart</Button>
-
-                    <Button
-                        className="MuiButton-outlined"
-                        style={styles.cartWish}
-                        variant='outlined'
-                        color='default'
-                    > Wishlist</Button>
-                </CardActions>
-            );
-        }
-    }
+    //             <CardActions>
+    //                 <span  className="card-add">
+    //                 <Button id="MuiButton-outlined"
+    //                     onClick={() => this.props.AddToCart(id)}
+    //                     variant='outlined'
+    //                     color='default'
+    //                 > Add to cart</Button>
+    //                 </span>
+    //                 <span className="cartWish">
+    //                 <Button
+    //                     className="cartWish"
+    //                     onClick={()=> this.props.AddToWishlist(id)}
+    //                     variant='outlined'
+    //                     color='default'
+    //                 > Wishlist</Button>
+    //                 </span>
+    //             </CardActions>
+    //         );
+    //     }
+    // }
 
     render() {
         return (
             <div>
                 <div className='title-div'>
                     <Typography variant='h6'>
-                        Books
+                        Books<span className="font-style-dashboard">({this.props.bookCount} items)</span>
                         </Typography>
                     <div>
                         <select className='sort' >
@@ -70,75 +70,66 @@ class BookDashboard extends Component {
                         this.props.books.map((data) => {
                             return (
                                 <Card className='note-card' >
-                                    <Tooltip style={styles.hover} title={data.description}>
+                                    <Tooltip title={data.description}>
                                         <div className="image-div" >
-                                            <img src={data.image} style={styles.imgStyle}></img>
+                                            <img className="img-style-dashboard" src={data.image}></img>
                                         </div>
                                     </Tooltip>
 
-                                    <CardContent id='card-detail' style={styles.cardDetails}>
+                                    <CardContent id='card-detail'>
                                         <Typography variant="h7" component="h4">
                                             {data.title}
                                         </Typography>
-                                        <Typography style={styles.fontsize}>
-                                            by {data.author}
+                                        <Typography>
+                                            <span className="fontsize">by {data.author}</span>
                                         </Typography>
-                                        <Typography component="h4" style={styles.fontSizeRs}>
-                                            Rs.{data.price}
+                                        <Typography component="h4">
+                                            <span className="font-size-rs">₹{data.price}</span>
                                         </Typography>
                                     </CardContent>
+                                    <CardActions>
                                     {
+                                        (this.props.cart.includes(data.bookId) || this.props.wishlistIds.includes(data.bookId) ) ?
+                                                    <button className="add-to-cart"
+                                                    //onClick={()=>{this.props.addToCart(data.bookId)}}
+                                                    >
+                                                       {this.props.cart.includes(data.bookId)? "Added to cart" : "Added to Wishlist" }
+                                                    </button>:
+                                                     <>
+                                                    <span  className="card-add">
+                                                    <Button id="MuiButton-outlined"
+                                                        onClick={() => this.props.addToCart(data.bookId,1)}
+                                                        variant='outlined'
+                                                        color='default'
+                                                    > Add to cart</Button>
+                                                    </span>
+                                                    
+                                                    <span className="cartWish">
+                                                    <Button
+                                                        id="btn-wish"
+                                                        className="cartWish"
+                                                        onClick={()=> this.props.addToCart(data.bookId,-1)}
+                                                        variant='outlined'
+                                                        color='default'
+                                                    > Wishlist</Button>
+                                                    </span>
+                                                    </>
+                                    }
+                                                </CardActions>
+                                            );
+                                        }
                                         this.displayButton(data.bookId)
                                     }
                                 </Card>
-                            );
+                            )
                         })
                     }
 
-                </div>
-                <div className='pagination-div'>
-                    <Pagination count={10} color="primary" className="page" />
                 </div>
             </div>
         )
 
     }
 
-}
-const styles = {
-    imgStyle: {
-        height: 170,
-        width: 115,
-    },
-    hover: {
-        heigth: 50,
-        wigth: 50,
-    },
-    cartAdd: {
-        borderWidth: 1,
-        paddingLeft: 3,
-        paddingRight: 4,
-        borderColor: 'Blue',
-        height: 32,
-    },
-    cartWish: {
-        borderWidth: 1,
-        paddingLeft: 3,
-        paddingRight: 4,
-        borderColor: 'green',
-        height: 32,
-    },
-    cardDetails: {
-        height: 45,
-        paddingTop: 4,
-        paddingLeft: 10,
-    },
-    fontsize: {
-        fontSize: 13,
-        color: 'dimgray '
-    },
-    fontSizeRs: {
-        fontSize: 15,
-    }
 }
 export default BookDashboard;

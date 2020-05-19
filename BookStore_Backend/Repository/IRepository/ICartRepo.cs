@@ -39,5 +39,7 @@ namespace Repository.IRepository
         /// </summary>
         /// <param name="BookId">BookId.</param>
         Task<CartModel> DeleteCartModel(long BookId);
+
+        int GetNumOfBook();
     }
 }

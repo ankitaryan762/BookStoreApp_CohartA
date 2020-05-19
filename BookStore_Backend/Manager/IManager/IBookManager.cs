@@ -12,5 +12,6 @@ namespace Manager.IManager
         IEnumerable<BookModel> GetAllBook();
         Task<int> AddBook(BookModel entity);
         string Image(IFormFile file, int id);
+        
     }
 }

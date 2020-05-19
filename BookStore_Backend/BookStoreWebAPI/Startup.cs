@@ -65,8 +65,21 @@ namespace BookStoreWebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    "AllowEverything",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyHeader().AllowAnyMethod());
+                options.AddPolicy(
+                    "AllowLocalHost",
+                    builder => builder.WithOrigins("http://localhost:3000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -81,7 +94,7 @@ namespace BookStoreWebAPI
             {
                 app.UseHsts();
             }
-
+            app.UseCors("AllowLocalHost");
             app.UseHttpsRedirection();
 
             app.UseCors(builder =>

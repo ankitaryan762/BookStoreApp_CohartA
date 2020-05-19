@@ -21,9 +21,9 @@ namespace Manager.ManagerIMPL
             return this.customerDetailsRepo.AddCustomerAddress(address);
         }
 
-        public CustomerDetails GetCustomerAddress(CustomerDetails customerDetails)
+        public CustomerDetails GetCustomerAddress(string EmailId)
         {
-            return this.customerDetailsRepo.GetCustomerAddress(customerDetails);
+            return this.customerDetailsRepo.GetCustomerAddress(EmailId);
         }
     }
 }

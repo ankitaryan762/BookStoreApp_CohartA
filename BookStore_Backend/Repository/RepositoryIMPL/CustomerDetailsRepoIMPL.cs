@@ -23,9 +23,9 @@ namespace Repository.RepositoryIMPL
             return result;
         }
 
-        public CustomerDetails GetCustomerAddress(CustomerDetails customerDetails)
+        public CustomerDetails GetCustomerAddress(string EmailId)
         {
-            return this._context.AddressContext.Find(customerDetails.Email);
+            return this._context.AddressContext.Find(EmailId);
         }
     }
 }

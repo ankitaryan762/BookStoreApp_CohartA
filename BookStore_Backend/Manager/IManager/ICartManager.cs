@@ -35,5 +35,6 @@ namespace Manager.IManager
         /// </summary>
         /// <param name="entity">entity.</param>
         Task<CartModel> DeleteCartModel(long BookId);
+        int GetNumOfBook();
     }
 }
