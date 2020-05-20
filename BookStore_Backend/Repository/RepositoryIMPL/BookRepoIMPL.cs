@@ -39,7 +39,7 @@ namespace Repository.RepositoryIMPL
         /// </summary>
         /// <param name="BookItem"></param>
         /// <returns></returns>
-        public Task<int> AddBook(BookModel BookItem)
+        public Task<int> AddBook(BookCLModel BookItem)
         {
             this._context.BookContext.Add(BookItem);
             var result = this._context.SaveChangesAsync();
@@ -50,7 +50,7 @@ namespace Repository.RepositoryIMPL
         /// method to fetch all the book from BookContext
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<BookModel> GetAllBook()
+        public IEnumerable<BookCLModel> GetAllBook()
         {
             return this._context.BookContext.ToList();
 

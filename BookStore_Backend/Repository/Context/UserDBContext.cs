@@ -12,7 +12,7 @@ namespace Repository.Context
         {
 
         }
-        public DbSet<BookModel> BookContext
+        public DbSet<BookCLModel> BookContext
         {
             get; set;
         }

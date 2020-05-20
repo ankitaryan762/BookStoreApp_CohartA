@@ -16,12 +16,12 @@ namespace Manager.ManagerIMPL
         {
             this._bookRepository = _bookRepository;
         }
-        public Task<int> AddBook(BookModel entity)
+        public Task<int> AddBook(BookCLModel entity)
         {
             return this._bookRepository.AddBook(entity);
         }
 
-        public IEnumerable<BookModel> GetAllBook()
+        public IEnumerable<BookCLModel> GetAllBook()
         {
             return this._bookRepository.GetAllBook();
         }

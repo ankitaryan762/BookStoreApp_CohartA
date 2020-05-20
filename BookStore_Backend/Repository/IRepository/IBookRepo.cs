@@ -17,14 +17,14 @@ namespace Repository.IRepository
         /// Gets all.
         /// </summary>
         /// <returns>all Book List</returns>
-        IEnumerable<BookModel> GetAllBook();
+        IEnumerable<BookCLModel> GetAllBook();
 
         /// <summary>
         /// Declare Add Method.
         /// </summary>
         /// <param name="BookItem">BookItem.</param>
         /// <returns>Task.</returns>
-        Task<int> AddBook(BookModel BookItem);
+        Task<int> AddBook(BookCLModel BookItem);
 
         string Image(IFormFile file, int id);
 
