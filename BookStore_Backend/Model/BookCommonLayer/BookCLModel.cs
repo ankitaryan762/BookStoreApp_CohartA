@@ -27,7 +27,7 @@ namespace Model.ModelCLasses
         /// <summary>
         /// property for the Authors of the book
         /// </summary>
-        
+        [Required]
         public string Author { get; set; }
 
         /// <summary>
