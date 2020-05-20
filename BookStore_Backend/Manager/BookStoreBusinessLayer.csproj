@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Model\Model.csproj" />
-    <ProjectReference Include="..\Repository\Repository.csproj" />
+    <ProjectReference Include="..\Model\BookStoreCommonLayer.csproj" />
+    <ProjectReference Include="..\Repository\BookStoreRepositoryLayer.csproj" />
   </ItemGroup>
 
 </Project>

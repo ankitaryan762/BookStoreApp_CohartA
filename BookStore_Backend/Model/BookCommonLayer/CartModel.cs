@@ -22,11 +22,13 @@ namespace Model.ModelCLasses
         /// <summary>
         /// property for BookId.
         /// </summary>
+        [Required]
         public long BookId { get; set; }
 
         /// <summary>
         /// property for count i.e number of books selected.
         /// </summary>
+        [Required]
         public int Count { get; set; }
     }
 }

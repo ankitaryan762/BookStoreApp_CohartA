@@ -19,6 +19,7 @@ namespace Model.ModelCLasses
         /// <summary>
         /// property for Password
         /// </summary>
+        [Required]
         public string Password { get; set; }
 
     }

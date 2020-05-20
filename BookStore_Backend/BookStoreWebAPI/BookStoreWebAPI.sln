@@ -5,16 +5,13 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreWebAPI", "BookStoreWebAPI.csproj", "{8B80E28B-949C-4BA9-8E42-121C45BE412B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "..\Model\Model.csproj", "{2F162E11-FC2A-4E8F-869F-989D188A1B2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreCommonLayer", "..\Model\BookStoreCommonLayer.csproj", "{2F162E11-FC2A-4E8F-869F-989D188A1B2D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "..\Repository\Repository.csproj", "{DAB60298-6BC8-4152-8AAF-69C4FE82FD3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreRepositoryLayer", "..\Repository\BookStoreRepositoryLayer.csproj", "{DAB60298-6BC8-4152-8AAF-69C4FE82FD3B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Manager", "..\Manager\Manager.csproj", "{53EAE1BA-272E-43E6-87CA-8AD97C0165E6}"
-<<<<<<< HEAD
-=======
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreBusinessLayer", "..\Manager\BookStoreBusinessLayer.csproj", "{53EAE1BA-272E-43E6-87CA-8AD97C0165E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitBookStoreTestProject", "..\NUnitTestBookStoreProject\NUnitBookStoreTestProject.csproj", "{607BE926-8639-4F97-95BB-CCB65CCF12A5}"
->>>>>>> 0b8bc40c4ddd07ad60dbaa7a1caa12b1c8043f92
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitBookStoreTestProject", "..\NUnitTestBookStoreProject\NUnitBookStoreTestProject.csproj", "{607BE926-8639-4F97-95BB-CCB65CCF12A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
