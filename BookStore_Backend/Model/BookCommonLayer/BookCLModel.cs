@@ -6,10 +6,10 @@ namespace Model.ModelCLasses
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    /// <summary>
+    /// <summary> 
     /// Model Class for Book
     /// </summary>
-    public class BookModel
+    public class BookCLModel
     {
         /// <summary>
         /// property for value id
@@ -27,7 +27,7 @@ namespace Model.ModelCLasses
         /// <summary>
         /// property for the Authors of the book
         /// </summary>
-        [Required]
+        
         public string Author { get; set; }
 
         /// <summary>
