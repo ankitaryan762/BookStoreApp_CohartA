@@ -10,7 +10,7 @@ namespace Model.ModelCLasses
     /// <summary>
     /// model class for CartModel
     /// </summary>
-    public class CartModel
+    public class CartCLModel
     {
         /// <summary>
         /// property for CartId

@@ -11,8 +11,8 @@ namespace Manager.ManagerIMPL
 {
     public class BookManager : IBookManager
     {
-        private readonly IBookRepo _bookRepository;
-        public BookManager(IBookRepo _bookRepository)
+        private readonly IBookRL _bookRepository;
+        public BookManager(IBookRL _bookRepository)
         {
             this._bookRepository = _bookRepository;
         }

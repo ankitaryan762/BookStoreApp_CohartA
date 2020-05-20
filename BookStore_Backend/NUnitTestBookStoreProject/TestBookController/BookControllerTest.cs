@@ -16,7 +16,7 @@ namespace NUnitBookStoreTestProject.TestBookController
         [TestCase]
         public void GetAllBookTest()
         {
-            var bookrepomock = new Mock<IBookRepo>();
+            var bookrepomock = new Mock<IBookRL>();
             var bookmangermock = new BookManager(bookrepomock.Object);
             var BookControllermock = new BookController(bookmangermock);
             var result = BookControllermock.GetAllBook();
@@ -26,10 +26,10 @@ namespace NUnitBookStoreTestProject.TestBookController
         [TestCase]
         public void AddBookTest()
         {
-            var bookrepomock = new Mock<IBookRepo>();
+            var bookrepomock = new Mock<IBookRL>();
             var bookmangermock = new BookManager(bookrepomock.Object);
             var BookControllermock = new BookController(bookmangermock);
-            BookModel bookModel = new BookModel()
+            BookCLModel bookModel = new BookCLModel()
             {
                 BookId = 0,
                 Author = "sumit",

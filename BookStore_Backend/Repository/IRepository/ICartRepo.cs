@@ -25,20 +25,20 @@ namespace Repository.IRepository
         /// </summary>
         /// <param name="BookItem">BookItem.</param>
         /// <returns>Task.</returns>
-        Task<int> AddCartModel(CartModel cartModel);
+        Task<int> AddCartModel(CartCLModel cartModel);
 
         /// <summary>
         /// Declare Update method.
         /// </summary>
         /// <param name="BookToUpdate">BookToUpdate.</param>
         /// <param name="BookNewDetails">BookNewDetails.</param>
-        Task<int> UpdateCartModel(CartModel OldBookDetails);
+        Task<int> UpdateCartModel(CartCLModel OldBookDetails);
 
         /// <summary>
         /// Declare Delete method.
         /// </summary>
         /// <param name="BookId">BookId.</param>
-        Task<CartModel> DeleteCartModel(long BookId);
+        Task<CartCLModel> DeleteCartModel(long BookId);
 
         int GetNumOfBook();
     }

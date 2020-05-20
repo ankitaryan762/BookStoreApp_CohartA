@@ -11,7 +11,7 @@ namespace Repository.IRepository
     /// <summary>
     /// inteface IBookRepo
     /// </summary>
-    public interface IBookRepo
+    public interface IBookRL
     {
         /// <summary>
         /// Gets all.

@@ -37,7 +37,7 @@ namespace Repository.RepositoryIMPL
         /// </summary>
         /// <param name="CartItem"></param>
         /// <returns>int</returns>
-        public Task<int> AddCartModel(CartModel cartModel)
+        public Task<int> AddCartModel(CartCLModel cartModel)
         {
             this._context.CartContext.Add(cartModel);
 
@@ -80,7 +80,7 @@ namespace Repository.RepositoryIMPL
         /// <param name="OldBookDetails"></param>
         /// <param name="NewBookDetails"></param>
         /// <returns></returns>
-        public async Task<int> UpdateCartModel(CartModel newCartModel)
+        public async Task<int> UpdateCartModel(CartCLModel newCartModel)
         {
             try
             {
@@ -101,9 +101,9 @@ namespace Repository.RepositoryIMPL
         /// </summary>
         /// <param name="cartId"></param>
         /// <returns></returns>
-        public async Task<CartModel> DeleteCartModel(long cartId)
+        public async Task<CartCLModel> DeleteCartModel(long cartId)
         {
-            CartModel cartModel = this._context.CartContext.Find(cartId);
+            CartCLModel cartModel = this._context.CartContext.Find(cartId);
             if (cartModel != null)
             {
                 this._context.CartContext.Remove(cartModel);
@@ -115,7 +115,7 @@ namespace Repository.RepositoryIMPL
 
         public int GetNumOfBook()
         {
-            var result = this._context.CartContext.Count<CartModel>();
+            var result = this._context.CartContext.Count<CartCLModel>();
             return result;
         }
     }

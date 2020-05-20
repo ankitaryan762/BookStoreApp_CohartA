@@ -23,7 +23,7 @@ namespace BookStoreWebAPI.Controllers
 
         [Route("addbook")]
         [HttpPost]
-        public async Task<IActionResult> AddBook(BookModel bookModel)
+        public async Task<IActionResult> AddBook(BookCLModel bookModel)
         {
             var result = await this.bookManager.AddBook(bookModel);
             if (result == 1)
@@ -37,7 +37,7 @@ namespace BookStoreWebAPI.Controllers
         [HttpGet]
         public IActionResult GetAllBook()
         {
-            IEnumerable<BookModel> books = this.bookManager.GetAllBook();
+            IEnumerable<BookCLModel> books = this.bookManager.GetAllBook();
             return this.Ok(books);
         }
 

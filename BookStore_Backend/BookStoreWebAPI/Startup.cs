@@ -45,11 +45,11 @@ namespace BookStoreWebAPI
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<IBookManager, BookManager>();
-            services.AddTransient<IBookRepo, BookRepoIMPL>();
+            services.AddTransient<IBookRL, BookRepoIMPL>();
 
            
             services.AddTransient<ICartRepo,CartRepoIMPL>();
-            services.AddTransient<ICartManager, CartManager>();
+            services.AddTransient<ICartBLManager, CartManager>();
 
             services.AddTransient<ICustomerDetailsRepo, CustomerDetailsRepoIMPL>();
             services.AddTransient<ICustomerDetailsManager, CustomerDetailsManager>();

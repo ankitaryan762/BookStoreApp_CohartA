@@ -18,7 +18,7 @@ namespace Repository.RepositoryIMPL
     /// <summary>
     /// implementation class for IBookRepo Interface
     /// </summary>
-    public class BookRepoIMPL : IBookRepo
+    public class BookRepoIMPL : IBookRL
     {
         /// <summary>
         /// instance reference for UserDBContext

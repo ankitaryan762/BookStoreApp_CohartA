@@ -30,7 +30,7 @@ namespace NUnitBookStoreTestProject.TestCartController
             var cardRepoMock = new Mock<ICartRepo>();
             var cartMangerMock = new CartManager(cardRepoMock.Object);
             var cartControllerMock = new CartController(cartMangerMock);
-            CartModel cartModel = new CartModel()
+            CartCLModel cartModel = new CartCLModel()
             {
                 CartId = 6,
                 BookId = 6,
@@ -46,7 +46,7 @@ namespace NUnitBookStoreTestProject.TestCartController
             var cardRepoMock = new Mock<ICartRepo>();
             var cartMangerMock = new CartManager(cardRepoMock.Object);
             var cartControllerMock = new CartController(cartMangerMock);
-            CartModel cartModel = new CartModel()
+            CartCLModel cartModel = new CartCLModel()
             {
                 CartId = 6,
                 BookId = 7,

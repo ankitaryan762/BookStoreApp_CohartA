@@ -13,9 +13,9 @@ namespace BookStoreWebAPI.Controllers
     [ApiController]
     public class CartController : ControllerBase
     {
-        private readonly ICartManager _cartManager;
+        private readonly ICartBLManager _cartManager;
 
-        public CartController(ICartManager cartManager)
+        public CartController(ICartBLManager cartManager)
         {
             this._cartManager = cartManager;
         }
@@ -32,7 +32,7 @@ namespace BookStoreWebAPI.Controllers
         // POST: api/Cart
         [Route("addcartmodel")]
         [HttpPost]
-        public async Task<IActionResult> AddCartModel(CartModel bookModel)
+        public async Task<IActionResult> AddCartModel(CartCLModel bookModel)
         {
             var result = await this._cartManager.AddCartModel(bookModel);
                 return this.Ok(result);
@@ -42,7 +42,7 @@ namespace BookStoreWebAPI.Controllers
         // PUT: api/Cart
         [Route("updatecartmodel")]
         [HttpPut]
-        public async Task<IActionResult> UpdateCartModel(CartModel cartModelnew)
+        public async Task<IActionResult> UpdateCartModel(CartCLModel cartModelnew)
         {
             var result = await this._cartManager.UpdateCartModel(cartModelnew);
             if (result==0)
@@ -55,7 +55,7 @@ namespace BookStoreWebAPI.Controllers
         // DELETE: api/Cart/5
         [Route("deletecartmodel")]
         [HttpDelete]
-        public async Task<CartModel> DeleteCartModel(long id)
+        public async Task<CartCLModel> DeleteCartModel(long id)
         {
             var result = await this._cartManager.DeleteCartModel(id);
             return result;
