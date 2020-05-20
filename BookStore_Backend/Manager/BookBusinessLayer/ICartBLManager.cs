@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Manager.IManager
 {
-    public interface ICartManager
+    public interface ICartBLManager
     {
         /// <summary>
         /// Declare GetAll Methods.

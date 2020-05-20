@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Manager.ManagerIMPL
 {
-   public class CartManager : ICartManager
+   public class CartManager : ICartBLManager
     {
         private readonly ICartRepo _cartRepo;
         public CartManager(ICartRepo cartRepo)
