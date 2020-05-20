@@ -18,12 +18,12 @@ namespace Manager.ManagerIMPL
             this._cartRepo = cartRepo;
         }
 
-        public Task<int> AddCartModel(CartModel cartModel)
+        public Task<int> AddCartModel(CartCLModel cartModel)
         {
             return this._cartRepo.AddCartModel(cartModel);
         }
 
-        public Task<CartModel> DeleteCartModel(long BookId)
+        public Task<CartCLModel> DeleteCartModel(long BookId)
         {
             var result = this._cartRepo.DeleteCartModel(BookId);
             return result;
@@ -34,7 +34,7 @@ namespace Manager.ManagerIMPL
             return this._cartRepo.GetCartContext();
         }
 
-        public async Task<int> UpdateCartModel(CartModel newCartModel)
+        public async Task<int> UpdateCartModel(CartCLModel newCartModel)
         {
             return await this._cartRepo.UpdateCartModel(newCartModel);
         }

@@ -21,20 +21,20 @@ namespace Manager.IManager
         /// </summary>
         /// <param name="entity">entity.</param>
         /// <returns>Task.</returns>
-        Task<int> AddCartModel(CartModel BookItem);
+        Task<int> AddCartModel(CartCLModel BookItem);
 
         /// <summary>
         /// Declare Update method.
         /// </summary>
         /// <param name="dbEntity">dbEntity.</param>
         /// <param name="entity">entity.</param>
-        Task<int> UpdateCartModel(CartModel newCartModel);
+        Task<int> UpdateCartModel(CartCLModel newCartModel);
 
         /// <summary>
         /// Declare Delete method.
         /// </summary>
         /// <param name="entity">entity.</param>
-        Task<CartModel> DeleteCartModel(long BookId);
+        Task<CartCLModel> DeleteCartModel(long BookId);
         int GetNumOfBook();
     }
 }

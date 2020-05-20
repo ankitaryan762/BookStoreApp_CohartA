@@ -16,7 +16,7 @@ namespace Repository.Context
         {
             get; set;
         }
-        public DbSet<CartModel> CartContext
+        public DbSet<CartCLModel> CartContext
         {
             get; set;
         }
