@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Manager.IManager
 {
-    public interface ILoginManager
+    public interface ILoginBLManager
     {
         /// <summary>
         ///abstract method to signup

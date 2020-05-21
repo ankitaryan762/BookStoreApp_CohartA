@@ -15,9 +15,9 @@ namespace BookStoreWebAPI.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly ILoginManager _loginManager;
+        private readonly ILoginBLManager _loginManager;
 
-        public LoginController(ILoginManager loginManager)
+        public LoginController(ILoginBLManager loginManager)
         {
             this._loginManager = loginManager;
         }

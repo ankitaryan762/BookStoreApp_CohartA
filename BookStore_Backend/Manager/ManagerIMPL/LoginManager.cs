@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Manager.ManagerIMPL
 {
-    public class LoginManager : ILoginManager
+    public class LoginManager : ILoginBLManager
     {
         private readonly ILoginRepo _loginRepo;
 
