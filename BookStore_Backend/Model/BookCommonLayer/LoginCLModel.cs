@@ -39,8 +39,19 @@ namespace Model.ModelCLasses
             }
         }
         ///<summary>
-        ///
+        ///creatimg property for decryption
         ///</summary>
+        public static string DecodePasswordToBase64(string Encodeddata)
+        {
+            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+            System.Text.Decoder utf8decode = encoder.GetDecoder();
+            byte[] todecode_byte = Convert.FromBase64String(Encodeddata);
+            int charcount = utf8decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+            char[]decoded_char=new char[charcount];
+            utf8decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+            string result = new string(decoded_char);
+            return result;
+        }
             
     }
 }
