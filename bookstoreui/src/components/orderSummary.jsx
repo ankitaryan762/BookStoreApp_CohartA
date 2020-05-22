@@ -4,16 +4,11 @@ import { Card, Button } from '@material-ui/core';
 import capture from '../assets/capture.jpg'
 import { withRouter } from "react-router-dom";
 export class OrderSummary extends Component {
-
-
-
     constructor(props) {
         super(props);
-        console.log(this.props)
     }
-    handleClick = () => {
-        this.props.history.push('/dashboard');
-    }
+
+
     render() {
         return (
             <div>
@@ -24,14 +19,14 @@ export class OrderSummary extends Component {
                     <div className="success-message">
                         <Typography>
                             <p>hurray!!! your order is confirmed</p>
-                            <span>the order id is #{this.props.location.state.orderId} save the order id for</span>
+                            <span>the order id is #{this.props.orderId} save the order id for</span>
                             <p>further communication....</p>
                         </Typography>
                     </div>
                     <div>
                         <table className="summary-table">
                             <thead>
-                                <tr style={styles.tableHead} className=".table-head">
+                                <tr id="tableHead">
                                     <th>Email</th>
                                     <th>Contact</th>
                                     <th>Address</th>
@@ -39,10 +34,12 @@ export class OrderSummary extends Component {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{sessionStorage.getItem("Email")}</td>
+                                    <td>Admin@gmail.com</td>
+                                    <td>9945673829</td>
+                                    <td>Church street, Kavery Nagar ,Old Airport Road</td>
+                                    {/* <td>{sessionStorage.getItem("Email")}</td>
                                     <td>{this.props.location.state.contact}</td>
-                                    <td colspan='3'>hurray!!! your order is confirmed the order id#{this.props.location.state.orderId} is  save the order id for
-                        further communication...</td>
+                                    <td>{this.props.location.state.address}</td> */}
                                 </tr>
                                 <tr>
                                 </tr>
@@ -51,21 +48,12 @@ export class OrderSummary extends Component {
                     </div>
                     <div className="continue-button">
                         <Button id="buttonId"
-                            onClick={this.handleClick}>
+                            onClick={this.props.showMainPage}>
                             Continue Shopping</Button>
                     </div>
                 </div>
             </div>
         )
     }
-}
-const styles = {
-    card: {
-        height: 800,
-        width: 620
-    },
-    tableHead: {
-        backgroundColor: '#c9cccf',
-    },
 }
 export default withRouter(OrderSummary);
