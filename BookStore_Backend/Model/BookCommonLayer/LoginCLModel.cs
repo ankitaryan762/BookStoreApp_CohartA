@@ -21,6 +21,26 @@ namespace Model.ModelCLasses
         /// </summary>
         [Required]
         public string Password { get; set; }
-
+        ///<summary>
+        ///creating property for encryption
+        ///</summary>
+        public static  string EncodePasswordToBase64(string password)
+        {
+            try
+            {
+                byte[] encdata_byte = new byte[password.Length];
+                encdata_byte = System.Text.Encoding.UTF8.GetBytes(password);
+                string encodeddata = Convert.ToBase64String(encdata_byte);
+                return encodeddata;
+            }
+            catch
+            {
+                throw new Exception("error in base64Encode" + Exception.message);
+            }
+        }
+        ///<summary>
+        ///
+        ///</summary>
+            
     }
 }
