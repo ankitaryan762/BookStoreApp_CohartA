@@ -265,7 +265,7 @@ td, th {
   align-items: center;
     justify-content: center;
     display: flex;
-    padding-bottom: 60px;
+    padding-bottom: 45px;
 }
 
 .success-image{
@@ -281,7 +281,7 @@ td, th {
 .continue-button{
   padding-top: 30px;
   /*  margin-left: 170px; */
-    margin: auto;
+  margin-bottom: 15px;
 }
 #buttonId{
   background: dodgerblue;
@@ -421,13 +421,14 @@ outline: none;
   align-items: 'center';
   width: 600px;
 }
+
 .imgStyle{
   height: 170px;
   width: 115px,
 }
 
 .cart-style-header{
-  margin-bottom:33px;
+  margin-bottom:25px;
     font-size:11px;
 }
 #book-icon{
@@ -493,6 +494,10 @@ outline: none;
         padding-top: 4px;
         padding-left: 10px;
 }
+/* .MuiSvgIcon-root {
+  margin-left: 127px;
+  margin-right: -80px;
+} */
 .fontsize{
   font-size: 13px;
   color: dimgray ;
@@ -550,7 +555,13 @@ form#form {
   margin-bottom: 40px
 }
 #loginButton{
-  margin-top: 40px;
+  color: white;
+    background-color:#6243c3;
+    width: 114px;
+    height: 37px;
+    outline: none;
+    border-radius: 7px
+  /* margin-top: 40px;
   width: 120px;
   height: 30px;
   border-radius: 8px;
@@ -560,7 +571,7 @@ form#form {
   align-items: center;
   display: flex;
   justify-content: center;
-  outline: none;
+  outline: none; */
 }
 #headerColor {
   background-color: Brown;
@@ -596,7 +607,228 @@ form#form {
   justify-content: center;
   align-items: center;
   width: 15px;
+  outline:none;
 }
 .icons-cart-div {
   display: flex;
+  outline:none;
 }
+#increment-decrement {
+  outline: none;
+}
+#tableHead{
+  background-color: #c9cccf,
+}
+
+ /* @media only screen and (min-width: 1280px){
+  .wishlists {
+    margin-left: -15px !important;
+}
+.rightIcons {
+  width: 20px;
+  margin-right: 53px;
+}
+
+.cart-icon-styles {
+  margin-left: 35px !important;
+}
+.MuiSvgIcon-root {
+  margin-right: -5px !important;
+    margin-left: 37px !important;
+}
+.MuiCard-root {
+  width: 600px;
+}
+.imgStyle {
+  height: 112px;
+  width: 115px ;
+}
+.cartCard {
+  width: 600px !important;
+}
+.MuiCard-root {
+ width: 600px;
+}
+
+.field-styles-address {
+  height: 45px;
+  width: 466px !important;
+}
+ 
+.continue-button{
+  padding-top: 30px;
+  margin-bottom: 15px;
+}
+#buttonId{
+  background: dodgerblue;
+color:white;
+height: 32px;
+outline: none;
+}
+
+.success-message-card{
+  height: 100%;
+    width: 600px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: auto
+}
+.cart-continue{
+  background: dodgerblue;
+  color:white;
+  border-radius: 5px;
+    height: 30px;
+    width: 85px;
+    margin-left: 35em;
+    outline: none;
+}
+.add-to-cart{
+  margin-left:30px;
+  width: 9em;
+  height: 35px;
+  background: dodgerblue;
+  border-radius: 7px;
+  color: white;
+  outline: none;
+}
+.field-styles {
+  height: 30px !important;
+  margin-right: 58px !important;
+  border-radius: 5px !important;
+  outline: none;
+  width: 203px !important;
+  padding-left: 7px !important;
+  border: 1px solid #aaa;
+}
+} */
+
+
+/* @media only screen and (min-width: 768px){
+.display-books {
+  margin-left: 23px;
+  margin-right: 210px;
+} 
+.MuiInputBase-input {
+  margin-left: -82px;
+}
+.title-div {
+  margin-left: 18%;
+  margin-right: 18%;
+}
+.search_box {
+  margin-right: 0px;
+    margin-left: 0px;
+}
+#book-icon {
+  width: 342px;
+  margin-left: 39px;
+}
+.title-div {
+  padding-left: 104px;
+  padding-right: 104px;
+}
+.searchIcon {
+  margin-right: 1px !important;
+  margin-left: -33px !important;
+  padding-left: 3px;
+  padding-right: 22px;
+}
+
+.MuiSvgIcon-root {
+ margin-right: -35px;
+    margin-left: 78px;
+}
+.wishlists {
+  margin-left: 53px;
+  margin-right: 3px;
+} 
+
+}*/
+/* @media only screen and (min-width: 360px){
+  .display-books {
+    margin-left: 33px;
+    margin-right: 33px;
+} 
+.search_box {
+  margin-right: 18px;
+  margin-left: -110px;
+}
+
+ .cart-icon-styles{
+  margin-left: -32px;
+}
+.title-div {
+  margin-left: 4%;
+  margin-right: 4%;
+}
+ .MuiToolbar-gutters {
+  margin-left: -157px;
+} 
+.searchIcon {
+  margin-right: 84px;
+}
+
+#added-cart {
+  height: 30px;
+  width: 94px;
+  margin-left: 27px;
+  margin-right: 1px;
+  font-size: 9px;
+}
+.imgStyle {
+  height: 112px;
+  width: 115px;
+}
+#remove-wishlist {
+  height: 30px;
+  font-size: 11px;
+  margin-top: 6px;
+}
+.cartCard {
+  width: 332px;
+}
+.placeOrder {
+  margin-left: -19px !important;
+}
+.MuiCard-root {
+  width:600px;
+}
+.div-field-styles {
+  margin: 20px;
+}
+.myCart-mainDiv {
+  min-height: 530px;
+}
+.placeOrder {
+  margin-left:-284px ;
+}
+.field-styles {
+  height: 25px;
+  margin-right: 16px;
+  border-radius: 3px;
+  outline: none;
+  width: 134px;
+  padding-left: 7px;
+  border: 1px solid #aaa;
+}
+.div-field-styles {
+  outline: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 0px;
+  margin: 13px;
+}
+.type-div {
+  margin-top: 12px;
+  margin-bottom: 13px;
+  margin-left: 13px;
+}
+.MuiCard-root {
+  width: 342px;
+}
+.field-styles-address {
+  height: 34px;
+}
+} */

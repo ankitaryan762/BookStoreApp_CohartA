@@ -3,7 +3,7 @@ import { Card, Button, Typography } from '@material-ui/core'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import IconButton from '@material-ui/core/IconButton'
-import { addCustomerDetails, getcountofcartitem } from '../Service/service'
+import { addCustomerDetails, getcountofcartitem,getCustomerDetailsByEmailId } from '../Service/service'
 import { withRouter } from "react-router-dom";
 import getAllCartItem from '../Service/service'
 export class MyCarts extends Component {
@@ -24,19 +24,21 @@ export class MyCarts extends Component {
             Type: "",
             clicks: 0,
             orderId: 0,
-            summary:false,
+            summary: false,
+            customerDetails:[],
+            showFilledAddress:false
         }
     }
 
-    placeOrderHandler = () => {
-        let showCustomerDetails = this.state.open;
-        this.setState({
-            open: !showCustomerDetails
-        })
-    }
+    // placeOrderHandler = () => {
+    //     // let showCustomerDetails = this.state.open;
+    //     this.setState({
+    //         // open: !showCustomerDetails
+    //     })
+    // }
 
     summaryHandler = () => {
-        this.props.history.push({pathname:'/orderSummary',state:{orderId:this.state.orderId, address:this.state.Address, contact:this.state.PhoneNumber}});
+        this.props.completeOrder(this.state.orderId)
     }
     handleCustomerDetails = () => {
         this.setState({
@@ -111,13 +113,13 @@ export class MyCarts extends Component {
         if (data.count + 1 > 5)
             return
         this.props.changeCartItems(data, data.count + 1)
-        this.getBookCount()
+        // this.getBookCount()
     }
     decreaseItem = (data) => {
         if (data.count == 1)
             return
         this.props.changeCartItems(data, data.count - 1)
-        this.getBookCount()
+        // this.getBookCount()
     }
 
     addCustomer = async (Name, PhoneNumber, Pincode, Locality, Address, LandMark, City) => {
@@ -138,9 +140,36 @@ export class MyCarts extends Component {
 
         this.setState({ orderId: orderId })
     }
+    placeOrderHandler = () => {
+        let showCustomerDetails = this.state.open;
+        this.setState({
+            open: !showCustomerDetails,
+            showFilledAddress: true
+        })
+    }
+
+    fetchAddress = () =>{
+        let Email = sessionStorage.getItem('Email');
+        let customerDetails = this.state.customerDetails;
+        console.log(Email)
+        getCustomerDetailsByEmailId(Email).then(res=>{
+            //customerDetails.push(res.data)
+            this.setState({
+                customerDetails:res.data,
+            })
+            
+            console.log(res);
+        })
+    }
+
+    componentDidMount(){
+        this.fetchAddress()
+    }
 
     render() {
         //const booksInCart = this.props.books.filter(book => this.props.cart.includes(book.bookId))
+        let customerDetails = this.state.customerDetails
+
         return (
             <div className="myCart-mainDiv">
                 <Card className="cartCard">
@@ -168,25 +197,25 @@ export class MyCarts extends Component {
                                                         <div>
                                                         </div>
                                                         <div className="icons-cart-div">
-                                                        <IconButton
-                                                            onClick={() => this.decreaseItem(data)}>
-                                                            <RemoveCircleOutlineIcon />
-                                                        </IconButton>
-                                                        <div className="count-div-cart">{data.count}</div>
-                                                        <IconButton
-                                                            onClick={() => this.IncrementItem(data)}
-                                                        >
-                                                            <AddCircleOutlineIcon />
-                                                        </IconButton>
-                                                     
-                                                        <Button
-                                                        id="remove"
-                                                            variant='outlined'
-                                                            onClick={() => {
-                                                                this.props.deleteCartItems(data.cartId)
-                                                            }}
-                                                        >Remove</Button>
-                                                           </div>
+                                                            <IconButton id="increment-decrement"
+                                                                onClick={() => this.decreaseItem(data)}>
+                                                                <RemoveCircleOutlineIcon />
+                                                            </IconButton>
+                                                            <div className="count-div-cart">{data.count}</div>
+                                                            <IconButton id="increment-decrement"
+                                                                onClick={() => this.IncrementItem(data)}
+                                                            >
+                                                                <AddCircleOutlineIcon />
+                                                            </IconButton>
+
+                                                            <Button
+                                                                id="remove"
+                                                                variant='outlined'
+                                                                onClick={() => {
+                                                                    this.props.deleteCartItems(data.cartId)
+                                                                }}
+                                                            >Remove</Button>
+                                                        </div>
                                                     </td>
                                                 </div>
 
@@ -221,30 +250,45 @@ export class MyCarts extends Component {
                             <Card className="cartCard">
                                 <div className="outer-div">
                                     <span className="customer-details">Customer Details</span>
+                                    {
+                                    this.state.open ?
+                                         ( 
+                                             <>
                                     <div className="div-field-styles">
                                         <input type="text" placeholder="Name" className="field-styles"
                                             onChange={this.nameHandler}
+                                            value={customerDetails.name}
                                         />
                                         <input type="text" placeholder="Phone no." className="field-styles"
                                             onChange={this.phoneNumberHandler}
+                                            value={customerDetails.phoneNumber}
                                         />
                                     </div>
                                     <div className="div-field-styles">
                                         <input type="text" placeholder="Pincode" className="field-styles"
                                             onChange={this.pincodeHandler}
+                                            value={customerDetails.pinCode}
                                         />
                                         <input type="text" placeholder="Locality" className="field-styles"
-                                            onChange={this.localityHandler} />
+                                            onChange={this.localityHandler}
+                                            value={customerDetails.locality}
+                                            />
                                     </div>
                                     <div className="div-field-styles">
                                         <input type="text" placeholder="Address" className="field-styles-address"
-                                            onChange={this.addressHandler} />
+                                            onChange={this.addressHandler}
+                                            value={customerDetails.address}
+                                            />
                                     </div>
                                     <div className="div-field-styles">
                                         <input type="text" placeholder="City/Town" className="field-styles"
-                                            onChange={this.cityHandler} />
+                                            onChange={this.cityHandler} 
+                                            value={customerDetails.city}
+                                            />
                                         <input type="text" placeholder="Landmark" className="field-styles"
-                                            onChange={this.landmarkHandler} />
+                                            onChange={this.landmarkHandler} 
+                                            value={customerDetails.landMark}
+                                            />
                                     </div>
                                     <span className="customer-details">Type</span>
                                     <div className="type-div">
@@ -260,12 +304,16 @@ export class MyCarts extends Component {
                                             this.props.addedCount > 0 ? (
                                                 <Button id="buttonStyles"
                                                     onClick={() => this.addCustomer(this.state.Name, this.state.PhoneNumber, this.state.Pincode, this.state.Locality, this.state.Address, this.state.LandMark, this.state.City)}
-                                                    // onClick={this.summaryHandler}
+                                                // onClick={this.summaryHandler}
                                                 >Continue</Button>
                                             ) : (<div></div>)
                                         }
                                     </div>
-                                </div>
+                                
+                                </>
+                                         ):null
+                                    }
+                                        </div>
                             </Card>
                         )
                 }
@@ -273,51 +321,51 @@ export class MyCarts extends Component {
                 {
                     !this.state.summary ? (
                         <Card className="orderSummry"
-                        onClick={this.handleSummaryDetails}
+                            onClick={this.handleSummaryDetails}
                         >
                             Order Summary
                         </Card>
-                    ) :(
-                <Card className="cartCard"
-                    onClick={this.handleClick}
-                >
-                    Order Summary
-                    {
-                    this.props.cartItems.map((data) => {
-                                return (
+                    ) : (
+                            <Card className="cartCard"
+                                onClick={this.handleClick}
+                            >
+                                Order Summary
+                                {
+                                    this.props.cartItems.map((data) => {
+                                        return (
 
-                                    <div>
-                                        <table>
-                                            <tr className="book-details">
-                                                <td className="book-details">
-                                                    <img className="imgStyle" src={data.bookImage} />
-                                                </td>
-                                                <div>
-                                                    <td className="book-details">
-                                                        <Typography variant="h6" >{data.bookTitle}</Typography>
-                                                        <Typography>{data.authorName}</Typography>
-                                                        <Typography><div className="money-div">
-                                                            ₹
-                                                        <div>{data.bookPrice}</div>
-                                                        </div>
-                                                        </Typography>
+                                            <div>
+                                                <table>
+                                                    <tr className="book-details">
+                                                        <td className="book-details">
+                                                            <img className="imgStyle" src={data.bookImage} />
                                                         </td>
+                                                        <div>
+                                                            <td className="book-details">
+                                                                <Typography variant="h6" >{data.bookTitle}</Typography>
+                                                                <Typography>{data.authorName}</Typography>
+                                                                <Typography><div className="money-div">
+                                                                    ₹
+                                                        <div>{data.bookPrice}</div>
+                                                                </div>
+                                                                </Typography>
+                                                            </td>
                                                         </div>
-                                                        </tr>
-                                                        </table>
-                                                        <div className="placeOrder">
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        )
+
+                                    })
+                                }
+                                <div className="placeOrder">
                                     <Button id="placeOrder"
                                         onClick={this.summaryHandler}>
                                         Checkout</Button>
                                 </div>
-                                                        </div>
-                                )
-
-                                })
-                            }
-                            {/* {this.state.orderId} */}
-                </Card>
-                    )}
+                                {/* {this.state.orderId} */}
+                            </Card>
+                        )}
                 {/* <Card className="orderSummry">
                                 Order Id
                                 <div>

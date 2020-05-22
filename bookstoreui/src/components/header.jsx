@@ -8,20 +8,17 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import InputBase from '@material-ui/core/InputBase';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { getcountofcartitem } from '../Service/service'
 class Header extends Component {
   constructor(props) {
     super(props)
-
   }
-
   render() {
     return (
       <div>
         <AppBar position="static" className="MuiAppBar-colorBrown" id="headerColor">
           <Toolbar variant="dense" className="toolbar">
             <div className="temp" id="book-icon"
-            onClick={this.props.showMainPage}
+              onClick={this.props.showMainPage}
             >
               <MenuBookIcon fontSize='medium' />
               <Typography variant='h6' id="book-icon">
@@ -44,11 +41,11 @@ class Header extends Component {
             <div className="HeaderIcons">
               <div className="rightIcons">
                 <FavoriteBorderOutlinedIcon fontSize='medium'
-                onClick={this.props.wlIconClickedHandler}
+                  onClick={this.props.wlIconClickedHandler}
                 />
               </div>
               <div className="wishlists">
-              { this.props.wishlistIds.length}
+                {this.props.wishlistIds.length}
               </div>
               <div className="cart-icon-styles">
                 <ShoppingCartOutlinedIcon fontSize='medium'

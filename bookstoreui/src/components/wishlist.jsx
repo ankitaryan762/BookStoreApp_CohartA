@@ -1,10 +1,6 @@
 import React, { Component } from "react"
 import { Card, Button, Typography } from '@material-ui/core'
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import IconButton from '@material-ui/core/IconButton'
-import { addCustomerDetails, getcountofcartitem } from '../Service/service'
-import getAllCartItem from '../Service/service'
+
 class Wishlist extends Component {
     constructor(props) {
         super(props)
@@ -26,9 +22,8 @@ class Wishlist extends Component {
                         <Typography variant="h6">My Wishlist</Typography>
                         {
 
-                            this.props.wishList.sort((a, b) => a.bookId > b.bookId ? 1 : -1).map((data) => {
+                            this.props.wishList.map((data) => {
                                 return (
-
                                     <div>
                                         <table>
                                             <tr className="book-details">
@@ -47,7 +42,6 @@ class Wishlist extends Component {
                                                         </div>
                                                         <div className="icons-cart-div">
 
-
                                                             <Button
                                                                 id="remove-wishlist"
                                                                 variant='outlined'
@@ -65,7 +59,6 @@ class Wishlist extends Component {
                                                         </div>
                                                     </td>
                                                 </div>
-
                                             </tr>
                                         </table>
                                     </div>
