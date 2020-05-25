@@ -1,12 +1,12 @@
 import React from 'react';
-import Footer from './Component/footer'
-import logo from './logo.svg';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
-import Dashboard from './Component/dashboard'
+import Dashboard from './components/dashboard'
 import './App.css';
-import OrderSummary from './Component/orderSummary'
-import MyCarts from './Component/myCarts'
-import Login from './Component/login'
+import OrderSummary from './components/orderSummary'
+import MyCarts from './components/myCarts'
+import Login from './components/login'
+require('dotenv').config()
+
 function App() {
   
   return (

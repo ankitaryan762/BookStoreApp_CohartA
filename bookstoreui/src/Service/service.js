@@ -1,12 +1,10 @@
 import axios from 'axios';
-require('dotenv').config();
-const url="https://localhost:44381/api/Login/login";
 
 //bookcontext
 //no-arg parameter
 //returns array of book items(bookmodel)
 export async function getBook(){
-    const res = await axios.get(process.env.REACT_APP_BASE_URL || "https://localhost:44381/api/Book/getallbook")
+    const res = await axios.get(process.env.REACT_APP_BASE_URL + "/Book/getallbook")
     return res.data
 }
 
@@ -14,12 +12,12 @@ export async function getBook(){
 //no-arg paramter
 //returns array of cart items(used join in backend)
 export async function getAllCartItem(){
-       const result = await axios.get(process.env.REACT_APP_BASE_URL || "https://localhost:44381/api/Cart/getcartcontext")
+       const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/getcartcontext")
        return result.data.filter(cartItem => cartItem.count>0)
 }
 
 export async function getWishList(){
-    const result = await axios.get(process.env.REACT_APP_BASE_URL || "https://localhost:44381/api/Cart/getcartcontext")
+    const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/getcartcontext")
     return result.data.filter(cartItem => cartItem.count==-1)
 }
 
@@ -31,7 +29,7 @@ export async function addCartItem(NewCartItem) {
         var headers= {
             'Content-Type': 'application/json'
         };
-        return await axios.post(process.env.REACT_APP_BASE_URL || "https://localhost:44381/api/Cart/addcartmodel", NewCartItem,{headers:headers} )
+        return await axios.post(process.env.REACT_APP_BASE_URL + "/Cart/addcartmodel", NewCartItem,{headers:headers} )
             .then(response => { 
                 return response
             })
@@ -46,14 +44,14 @@ export async function addCartItem(NewCartItem) {
 
 //parameter CartId string type
 export async function deleteCartItemById(cartid) {
-        const result=await axios.delete(process.env.REACT_APP_BASE_URL || "https://localhost:44381/api/Cart/deletecartmodel?id="+cartid)
+        const result=await axios.delete(process.env.REACT_APP_BASE_URL + "/Cart/deletecartmodel?id="+cartid)
             return result.data
         }
 
 
 export async function getcountofcartitem(){
     try{
-    const result = await axios.get(process.env.REACT_APP_BASE_URL || "https://localhost:44381/api/Cart/countofbook")
+    const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/countofbook")
     return result.data
     }
     catch(error)
@@ -73,7 +71,7 @@ export async function getCustomerDetailsByEmailId(EmailId) {
         var headers= {
             'Content-Type': 'application/json'
         };
-        return await axios.get(process.env.REACT_APP_BASE_URL || "https://localhost:44381//api/CustomerDetails/getaddressbyemail?EmailId="+EmailId)
+        return await axios.get(process.env.REACT_APP_BASE_URL+"/CustomerDetails/getaddressbyemail?EmailId="+EmailId)
             .then(response => { 
                 return response
             })
@@ -93,7 +91,7 @@ export async function addCustomerDetails(NewCustomerItem) {
     };
     let object = JSON.stringify(NewCustomerItem)
     try{
-    let orderId = await axios.post(process.env.REACT_APP_BASE_URL || "https://localhost:44381/api/CustomerDetails/addaddress", object,{headers} )
+    let orderId = await axios.post(process.env.REACT_APP_BASE_URL+"/CustomerDetails/addaddress", object,{headers} )
     return orderId    
 }
     catch(error){
@@ -103,9 +101,9 @@ export async function addCustomerDetails(NewCustomerItem) {
  
 //end of customeraddressdetails
 
-const loginURL='https://localhost:44381/api/Login/login';
+const loginURL=process.env.REACT_APP_BASE_URL+'/Login/login';
 
 export const LoginRequestMethod = async (data)=>{
-    const response = await axios.post(process.env.REACT_APP_BASE_URL || loginURL,data);
+    const response = await axios.post( loginURL,data);
     return response;
 }

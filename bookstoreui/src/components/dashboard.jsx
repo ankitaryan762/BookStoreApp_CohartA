@@ -65,7 +65,8 @@ class Dashboard extends Component {
     showMainPage = () => {
         this.setState({
             showCart: false,
-            showWishList:false
+            showWishList:false,
+            orderCompleted:false,
         })
     }
 
@@ -73,7 +74,8 @@ class Dashboard extends Component {
         let showMyCart = this.state.showCart;
         this.setState({
             showCart: true,
-            showWishList:false
+            showWishList:false,
+            orderCompleted:false
         })
     }
 
@@ -82,11 +84,20 @@ class Dashboard extends Component {
         let showMyCart = this.state.showCart;
         this.setState({
             showCart: false,
-            showWishList:true
+            showWishList:true,
+            orderCompleted:false
         })
     }
 
-
+    completeOrder = (id) => {
+        let showMyCart = this.state.showCart;
+        this.setState({
+            showCart: false,
+            showWishList: false,
+            orderCompleted:true,
+            orderId: id
+        })
+    }
     addToCart = async (id,count) => {
         var data = {
             BookId: id,
@@ -117,10 +128,37 @@ class Dashboard extends Component {
         let deletedResult=await deleteCartItemById(cartid)
         console.log(deletedResult)
         this.getCartItems() 
-        
         this.getWishListItems()
     }
-
+    priceHandler=(event)=>{
+        const selection = event.target.value;
+        let result = this.state.result;
+        if (selection === "Price:low to high")
+        {
+            function compare(a, b){
+            let comparison = 0
+            if(a.price<b.price){
+                comparison=-1
+            }
+                return comparison
+            }
+            this.setState({
+                result: result.sort(compare)
+            })
+        }
+        else{
+            function compare(a, b){
+                let comparison = 0
+                if(a.price>b.price){
+                    comparison=-1
+                }
+                    return comparison
+                }
+                this.setState({
+                    result: result.sort(compare)
+                })
+        }
+    }
     changeCartItems = async(book,count) =>{
         let deletedResult=await deleteCartItemById(book.cartId)
         this.addToCart(book.bookId,count)
@@ -157,6 +195,7 @@ class Dashboard extends Component {
         addedCount = { this.state.addedCount}
         addCustomer={this.addCustomer}
         wishlistIds ={this.state.wishlistIds}
+        completeOrder = {this.completeOrder}
         />
         if (this.state.showWishList)
         return <Wishlist 
@@ -168,6 +207,11 @@ class Dashboard extends Component {
         addedCount = { this.state.addedCount}
         addCustomer={this.addCustomer}
         />
+        if (this.state.orderCompleted)
+        return <OrderSummary
+        showMainPage={this.showMainPage}
+        orderId = {this.state.orderId}
+        />
     
     return <div><BookDashboard 
     // books={this.state.result.filter((book)=> book.title.includes(this.state.searchText),currentPosts)} 
@@ -178,6 +222,7 @@ class Dashboard extends Component {
     wishList = {this.state.wishList}
     wishlistIds ={this.state.wishlistIds}
     bookCount={this.state.result.length}
+    priceHandler={this.priceHandler}
     />
     <Pagination postsPerPage={this.state.postsPerPage}
             totalPosts={this.state.result.length}
@@ -193,8 +238,6 @@ class Dashboard extends Component {
         books=currentPosts
         else
         books=this.state.result.filter((book)=> book.title.toLowerCase().includes(this.state.searchText)||book.author.toLowerCase().includes(this.state.searchText))
-        
-
             return (
                 <div>
                     <div id="main">
