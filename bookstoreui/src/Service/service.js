@@ -3,22 +3,37 @@ import axios from 'axios';
 //bookcontext
 //no-arg parameter
 //returns array of book items(bookmodel)
-export async function getBook(){
-    const res = await axios.get(process.env.REACT_APP_BASE_URL + "/Book/getallbook")
-    return res.data
+export async function getBook() {
+    try {
+        const res = await axios.get(process.env.REACT_APP_BASE_URL + "/Book/getallbook")
+        return res.data
+    }
+    catch (error) {
+        console.log(error)
+    }
 }
 
 //cartcontext
-//no-arg paramter
 //returns array of cart items(used join in backend)
-export async function getAllCartItem(){
-       const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/getcartcontext")
-       return result.data.filter(cartItem => cartItem.count>0)
+export async function getAllCartItem() {
+    try {
+        const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/getcartcontext")
+        return result.data
+        //filter(cartItem => cartItem.count > 0)
+    }
+    catch (error) {
+        console.log(error)
+    }
 }
 
-export async function getWishList(){
-    const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/getcartcontext")
-    return result.data.filter(cartItem => cartItem.count==-1)
+export async function getWishList() {
+    try {
+        const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/getcartcontext")
+        return result.data.filter(cartItem => cartItem.count == -1)
+    }
+    catch (error) {
+        console.log(error)
+    }
 }
 
 
@@ -26,11 +41,11 @@ export async function getWishList(){
 
 export async function addCartItem(NewCartItem) {
     try {
-        var headers= {
+        var headers = {
             'Content-Type': 'application/json'
         };
-        return await axios.post(process.env.REACT_APP_BASE_URL + "/Cart/addcartmodel", NewCartItem,{headers:headers} )
-            .then(response => { 
+        return await axios.post(process.env.REACT_APP_BASE_URL + "/Cart/addcartmodel", NewCartItem, { headers: headers })
+            .then(response => {
                 return response
             })
     }
@@ -44,22 +59,21 @@ export async function addCartItem(NewCartItem) {
 
 //parameter CartId string type
 export async function deleteCartItemById(cartid) {
-        const result=await axios.delete(process.env.REACT_APP_BASE_URL + "/Cart/deletecartmodel?id="+cartid)
-            return result.data
-        }
-
-
-export async function getcountofcartitem(){
-    try{
-    const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/countofbook")
+    const result = await axios.delete(process.env.REACT_APP_BASE_URL + "/Cart/deletecartmodel?id=" + cartid)
     return result.data
+}
+
+
+export async function getcountofcartitem() {
+    try {
+        const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/countofbook")
+        return result.data
     }
-    catch(error)
-    {
+    catch (error) {
         return 0
     }
-    
- }
+
+}
 
 //end of cartcontext
 
@@ -68,11 +82,11 @@ export async function getcountofcartitem(){
 //return one customerdetailsmodel object
 export async function getCustomerDetailsByEmailId(EmailId) {
     try {
-        var headers= {
+        var headers = {
             'Content-Type': 'application/json'
         };
-        return await axios.get(process.env.REACT_APP_BASE_URL+"/CustomerDetails/getaddressbyemail?EmailId="+EmailId)
-            .then(response => { 
+        return await axios.get(process.env.REACT_APP_BASE_URL + "/CustomerDetails/getaddressbyemail?EmailId=" + EmailId)
+            .then(response => {
                 return response
             })
     }
@@ -86,24 +100,29 @@ export async function getCustomerDetailsByEmailId(EmailId) {
 //parameter -> one new CustomerModel obj
 export async function addCustomerDetails(NewCustomerItem) {
     console.log(NewCustomerItem)
-    var headers= {
+    var headers = {
         'Content-Type': 'application/json-patch+json'
     };
     let object = JSON.stringify(NewCustomerItem)
-    try{
-    let orderId = await axios.post(process.env.REACT_APP_BASE_URL+"/CustomerDetails/addaddress", object,{headers} )
-    return orderId    
-}
-    catch(error){
+    try {
+        let orderId = await axios.post(process.env.REACT_APP_BASE_URL + "/CustomerDetails/addaddress", object, { headers })
+        return orderId
+    }
+    catch (error) {
         return -1
     }
 }
- 
+
 //end of customeraddressdetails
 
-const loginURL=process.env.REACT_APP_BASE_URL+'/Login/login';
+const loginURL = process.env.REACT_APP_BASE_URL + '/Login/login';
 
-export const LoginRequestMethod = async (data)=>{
-    const response = await axios.post( loginURL,data);
+export const LoginRequestMethod = async (data) => {
+    try{
+    const response = await axios.post(loginURL, data);
     return response;
+    }
+    catch(error){
+        console.log(error)
+    }
 }
