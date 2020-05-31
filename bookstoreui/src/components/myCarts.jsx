@@ -140,7 +140,7 @@ export class MyCarts extends Component {
         }
         if(!(/^\d{10}$/.test(this.state.PhoneNumber)))
         {
-            phoneNumberError = '* Phone number must be digits only and should not be blank.'
+            phoneNumberError = '* Phone number must be digits and should not be blank.'
         }
         if(!(/^\d{6}$/.test(this.state.Pincode)))
         {
@@ -152,7 +152,7 @@ export class MyCarts extends Component {
         }
         if(!(/^[A-Za-z]+$/.test(this.state.City)))
         {
-            cityError='* City should not be blank and shiuld contains alphabets only'
+            cityError='* City should not be blank and contains alphabets only'
         }
         if(!(/^[A-Za-z0-9]+$/.test(this.state.Address)))
         {
@@ -344,7 +344,7 @@ export class MyCarts extends Component {
                                                     <span className="error-messages">
                                                             {this.state.nameError}
                                                         </span>
-                                                        <span className="error-messages">
+                                                        <span className="error-message-phone">
                                                             {this.state.phoneNumberError}
                                                         </span>
                                                     <div className="div-field-styles">
@@ -360,7 +360,7 @@ export class MyCarts extends Component {
                                                     <span className="error-messages">
                                                             {this.state.pincodeError}
                                                         </span>
-                                                        <span className="error-messages">
+                                                        <span className="error-messages-locality">
                                                             {this.state.localitError}
                                                         </span>
                                                     <div className="div-field-styles">
@@ -385,7 +385,7 @@ export class MyCarts extends Component {
                                                     <span className="error-messages">
                                                             {this.state.cityError}
                                                         </span>
-                                                        <span className="error-messages">
+                                                        <span className="error-messages-landmark">
                                                             {this.state.landmarkError}
                                                         </span>
                                                     <div className="customer-details">Type</div>

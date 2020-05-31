@@ -333,6 +333,7 @@ outline: none;
   width: 203px;
   padding-left: 7px;
   border: 1px solid #aaa;
+  margin-bottom: -20px;
 }
 .div-field-styles {
   outline: none;
@@ -349,6 +350,7 @@ outline: none;
   border-radius: 5px;
   border: 1px solid #aaa;
   padding-left: 6px;
+  margin-bottom: -17px;
 }
 
 #label{
@@ -618,6 +620,23 @@ form#form {
 .error-messages{
   font-size: 9px; 
   color: red;
+  margin-left: 48px;
+}
+.error-message-phone{
+  margin-left: 24px;
+  font-size: 9px; 
+  color: red;
+}
+.error-messages-locality{
+  margin-left: 148px;
+  font-size: 9px; 
+  color: red;
+  padding-right: 7px;
+}
+.error-messages-landmark {
+  font-size: 9px;
+  color: red;
+  margin-left: 34px;
 }
  /* @media only screen and (min-width: 1280px){
   .wishlists {

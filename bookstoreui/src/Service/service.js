@@ -18,8 +18,7 @@ export async function getBook() {
 export async function getAllCartItem() {
     try {
         const result = await axios.get(process.env.REACT_APP_BASE_URL + "/Cart/getcartcontext")
-        return result.data
-        //filter(cartItem => cartItem.count > 0)
+        return result.data.filter(cartItem => cartItem.count > 0)
     }
     catch (error) {
         console.log(error)
