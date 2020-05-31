@@ -341,10 +341,10 @@ export class MyCarts extends Component {
                                                         //value={customerDetails.phoneNumber}
                                                         />
                                                     </div>
-                                                    <span style={{ fontSize: 9, color: "red" }}>
+                                                    <span className="error-messages">
                                                             {this.state.nameError}
                                                         </span>
-                                                        <span style={{ fontSize: 9, color: "red"}}>
+                                                        <span className="error-messages">
                                                             {this.state.phoneNumberError}
                                                         </span>
                                                     <div className="div-field-styles">
@@ -357,10 +357,10 @@ export class MyCarts extends Component {
                                                         //value={customerDetails.locality}
                                                         />
                                                     </div>
-                                                    <span style={{ fontSize: 12, color: "red" }}>
+                                                    <span className="error-messages">
                                                             {this.state.pincodeError}
                                                         </span>
-                                                        <span style={{ fontSize: 12, color: "red" }}>
+                                                        <span className="error-messages">
                                                             {this.state.localitError}
                                                         </span>
                                                     <div className="div-field-styles">
@@ -369,7 +369,7 @@ export class MyCarts extends Component {
                                                         //value={customerDetails.address}
                                                         />
                                                     </div>
-                                                    <span style={{ fontSize: 12, color: "red" }}>
+                                                    <span className="error-messages">
                                                             {this.state.addressError}
                                                         </span>
                                                     <div className="div-field-styles">
@@ -382,10 +382,10 @@ export class MyCarts extends Component {
                                                         //value={customerDetails.landMark}
                                                         />
                                                     </div>
-                                                    <span style={{ fontSize: 12, color: "red" }}>
+                                                    <span className="error-messages">
                                                             {this.state.cityError}
                                                         </span>
-                                                        <span style={{ fontSize: 12, color: "red" }}>
+                                                        <span className="error-messages">
                                                             {this.state.landmarkError}
                                                         </span>
                                                     <div className="customer-details">Type</div>

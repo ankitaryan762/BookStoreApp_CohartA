@@ -3,6 +3,9 @@ import { Typography } from '@material-ui/core';
 import { LoginRequestMethod } from '../Service/service'
 import { TextField, Grid, Button, Snackbar } from '@material-ui/core'
 import MuiAlert from '@material-ui/lab/Alert';
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 class Login extends Component {
   constructor(props) {
     super(props)
@@ -49,9 +52,6 @@ class Login extends Component {
         this.props.history.push('/Dashboard');
       }
       else {
-        //alert("email or password is incorrect");
-        //setOpen(true);
-
         this.setState({
           showError: true
         })
@@ -99,15 +99,17 @@ class Login extends Component {
                 </TextField>
               </div>
 
-              {/* <div className="form-group">
-            <label for="password">Password :</label>
-            <input type="password" id="password" className="form-control " onChange={this.passwordHandler} />
-          </div> */}
-              {
+              {/* {
                 this.state.showError ? <div id="error">Email or Password is incorrect </div> : null
-              }
+              } */}
 
-              <div className="form-group text-secondary">
+              <Snackbar open={this.state.showError} autoHideDuration={6000}>
+                {/* message="Email or Password is incorrect" */}
+                <Alert severity="error">
+                  Email or Password is incorrect
+                </Alert>
+              </Snackbar>
+              <div className="message">
                 Don't have an account ? register
           </div>
               <div><Button type="submit" id="loginButton" style={{ color: "white" }} >Login</Button></div>
